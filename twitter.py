@@ -30,18 +30,6 @@ class MyStreamListener(tweepy.StreamListener):
 		# python3 ./isitoffensive image_url
 		if "User did not post an image" not in image_url:
 			process = subprocess.Popen(['/usr/bin/python3', '/home/ubuntu/TwitterBot/isitoffensive.py', image_url], stdout=subprocess.PIPE)
-		# We don't need stderr, since the AI script doesn't
-		# write there
-
-		# Well we know the image URL is right, let's print
-		# Out what we're getting in the other script.
-
-		# That runs the isitoffensive scripts Greg and I made,
-		# and it will return some text to tweet
-
-		# This will grab the output and store it in a variable
-		# called out, let's see what's stored there when we 
-		# check the tweeted image
 			out = process.communicate()[0].decode("utf-8")
 
 		# Add username to output
@@ -122,5 +110,3 @@ myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
 # async means it will grab new tweets while we can work on
 # the ones it has grabbed so far
 myStream.filter(track=['#IsThisOffensive', '#AmIOffensive'], async=True)
-
-
