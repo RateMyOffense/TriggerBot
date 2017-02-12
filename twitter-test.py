@@ -4,9 +4,12 @@ import tweepy
 # Add in a Stream class to get tweets as soon as they're posted
 class MyStreamListener(tweepy.StreamListener):
 
-	# On receiving a tweet, print it out
+	# On receiving a tweet, print the image URL and tweet id
 	def on_status(self, status):
-		print(status.text)
+		image_url = status.entities['media'][0]['media_url_https']
+		tweet_id = status.id
+		print('image url:' + image_url)
+		print('tweet id: ' + str(tweet_id))
 	
 	# If we get an error, handle it instead of crashing :)
 	def on_error(self, status_code):
