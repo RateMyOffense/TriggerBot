@@ -1,0 +1,4 @@
+API.update_with_media (filename,[status],[in_reply_to_status_id],[lat],[long],[source],[place_id],[file])
+#An API that updates twitter status with string and media file (assuming offended is true)
+#Use 37°18′N 120°29′W for lat and long
+
