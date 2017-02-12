@@ -1,5 +1,5 @@
 # Import our Twitter library
-import tweepy
+import random, tweepy, os
 import subprocess # For running commands
 import json # For processing JSON files
 
@@ -52,11 +52,9 @@ class MyStreamListener(tweepy.StreamListener):
 		# Reply based on above response from the AI here
 		
 		# Get a random happy image
-		hi_filepath = '/home/ubuntu/images/nonoffensive/'
-		hi_filename = 'happy.jpg'
+		hi_filepath = '/home/ubuntu/images/kittens/'
+		hi_filename = random.choice(os.listdir(hi_filepath))
 		happy_image = hi_filepath + hi_filename
-		# I sort of deleted all our non-offensive images
-		# To save space, so we'll need to download some more
 
 		# Send the reply
 		api.update_with_media (happy_image, status=out, in_reply_to_status_id=tweet_id)
@@ -109,8 +107,8 @@ class MyStreamListener(tweepy.StreamListener):
 			return False
 
 # Set up API keys
-auth = tweepy.OAuthHandler('ih5fi9Ok9bsGSv8rJsuE1dQ4g','uu8jDA70qX6aRk0ncwrGgjuj98txbMcoxbjpU6yqCk0bKA3Bh2')
-auth.set_access_token('830296557031350272-gydrr5kPF7bHEeBbuavGbY4wHINxfwO', 'DWVKLOImtno3eXi7SdyrqaNrzED3V8sp0Bei9poFXXZf6')
+auth = tweepy.OAuthHandler('','')
+auth.set_access_token('', '')
 
 # Set up an API object
 api = tweepy.API(auth)

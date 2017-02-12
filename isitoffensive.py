@@ -20,7 +20,7 @@ url = url.rstrip()
 
 # Create an 'app' object based off our Clarifai API Key
 # This gives us access to the API
-app = ClarifaiApp("J776KJ-Ob-GtKnS_jylW-yxWrT-gmDrHfRLzeJG-", "1eevauzVbedZnKdcuMCGoZHtzLVSaJ5ndeANzdBG")
+app = ClarifaiApp("", "")
 
 # Load in their model to distinguish NSFW images
 model = app.models.get("isoffensive")
