@@ -81,6 +81,6 @@ myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
 # Listen for the #AmIOffensive hashtag
 # async means it will grab new tweets while we can work on
 # the ones it has grabbed so far
-myStream.filter(track=['#AmIOffensive'], async=True)
+myStream.filter(track=['#IsThisOffensive', '#AmIOffensive'], async=True)
 
 
