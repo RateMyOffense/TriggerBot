@@ -1,6 +1,9 @@
 # Import our Twitter library
 import tweepy
 import subprocess # For running commands
+import json # For processing JSON files
+
+bio_start = "Post a tweet with #IsThisOffensive and I'll tell you if it is!"
 
 # Add in a Stream class to get tweets as soon as they're posted
 class MyStreamListener(tweepy.StreamListener):
@@ -59,6 +62,45 @@ class MyStreamListener(tweepy.StreamListener):
 		api.update_with_media (happy_image, status=out, in_reply_to_status_id=tweet_id)
 
 		print('Reply sent')
+
+		# Add one to tweet counter
+		
+		# Get current count
+		with open('stats.json', 'r') as data:
+			stats = json.load(data)
+			
+		# Grab the current tweet amount
+		curr_count = stats['total_tweets']
+
+		# Grab the current offensive percentage
+		off_percent = stats['offensive']
+
+		# Determine new offensive %
+		total_offensive_imgs = off_percent * curr_count
+		if "offensive!" in image_url:
+			# This was an offensive post
+			off_percent = (total_offensive_imgs + 1) / (curr_count + 1)
+		else:
+			# Not offensive, don't increment
+			off_percent = total_offensive_imgs / (curr_count + 1)
+
+		# Save new offensive%
+		stats['offensive'] = off_percent
+
+		# Increment by 1
+		stats['total_tweets'] = curr_count + 1
+		curr_count  = curr_count + 1
+
+		# Save new amount
+		with open('stats.json', 'w') as data:
+			data.write(json.dumps(stats))
+
+		print ('\nNew Tweet Count: ' + str(curr_count))
+		print ('\nNew Offensive Percentage: ' + str(off_percent))
+
+		# Set new Bio and format % so it has no decimals
+		bio = bio_start + " Images Scanned: " + str(curr_count) + " Offensive: " + "{0:.0f}".format(off_percent * 100) + "%"
+		api.update_profile(description=bio)
 
 	# If we get an error, handle it instead of crashing :)
 	def on_error(self, status_code):

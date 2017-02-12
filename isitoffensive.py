@@ -49,7 +49,8 @@ if nsfwAmount > 0.15:
 
 	# This will insert the random response into the tweet, along
 	# With the probability
-	print (text_response + ", AI found image to be: " + str(nsfwAmount) + "% offensive.")
+	print (text_response + ", AI found image to be: " + str(nsfwAmount) + "% offensive!")
+
 else:
 	# Pick a random non-offended response
 	text_response = random.choice(not_Offended_response)
