@@ -6,10 +6,23 @@ class MyStreamListener(tweepy.StreamListener):
 
 	# On receiving a tweet, print the image URL and tweet id
 	def on_status(self, status):
-		image_url = status.entities['media'][0]['media_url_https']
+		image_url = "User did not post an image" # Changes if they did
+
+		# Can cause an exception if the person 
+		# does not post with an image
+		try:
+			image_url = status.entities['media'][0]['media_url_https']
+		except:
+			pass # If it errors, it will use the above image_url
+
 		tweet_id = status.id
 		print('image url:' + image_url)
 		print('tweet id: ' + str(tweet_id))
+
+		# Put code for talking to our AI here
+		# python3 ./isitoffensive image_url
+
+		# Reply based on above response from the AI here
 	
 	# If we get an error, handle it instead of crashing :)
 	def on_error(self, status_code):
